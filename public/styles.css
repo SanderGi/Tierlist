@@ -138,15 +138,6 @@ footer {
     font-size: x-large;
 }
 
-.addwrapper {
-    float: left;
-    width: var(--itemsize);
-    height: var(--itemsize);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #items {
     width: fit-content;
     height: 100%;
@@ -180,6 +171,15 @@ a {
     color: white;
 }
 
+.addwrapper {
+    float: left;
+    width: var(--itemsize);
+    height: var(--itemsize);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .add {
     background-color: aquamarine;
     width: 40px; height: 40px;
@@ -191,6 +191,15 @@ a {
     align-items: center;
     color: var(--accent);
     font-size: 1.5rem;
+    border: none;
+}
+
+.add:hover:not(:active) {
+    transform: translateY(-2px);
+}
+
+.add:active {
+    transform: translateY(2px);
 }
 
 /* Fancy button with background gradient and animation */
