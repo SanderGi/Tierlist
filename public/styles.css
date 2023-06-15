@@ -13,6 +13,7 @@
     box-sizing: border-box;
 }
 
+/* ===================== PAGE LAYOUT ===================== */
 body, html {
     padding: 0%;
     margin: 0%;
@@ -83,6 +84,8 @@ a {
     width: 80%;
     margin: 20px;
     text-align: center;
+    min-height: var(--itemsize);
+    box-sizing: content-box;
 }
 
 @media only screen and (max-width: 800px) {
@@ -94,6 +97,7 @@ a {
     }
 }
 
+/* ===================== TIERS AND ITEMS ===================== */
 .value, .item {
     background-color: var(--default);
     height: var(--itemsize);
@@ -139,19 +143,13 @@ a {
     font-size: x-large;
 }
 
-.tier > .dropzone {
-    width: 100%;
-}
-
-.itemlist > .dropzone {
-    width: fit-content;
-    height: fit-content;
-    min-width: var(--itemsize);
-    min-height: var(--itemsize);
-}
-
 .item {
     float: left;
+}
+
+/* ===================== DRAG AND DROP ===================== */
+.tier > .dropzone {
+    width: 100%;
 }
 
 .dropzone.over {
@@ -163,6 +161,7 @@ a {
     cursor: move;
 }
 
+/* ===================== UI COMPONENTS ===================== */
 /* Fancy button with background gradient and animation */
 .button {
     align-items: center;
