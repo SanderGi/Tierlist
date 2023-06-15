@@ -72,10 +72,6 @@ footer {
     box-shadow: 0px -2px 25px 0px var(--shadow);
 }
 
-a {
-    color: white;
-}
-
 .tierlist, .itemlist {
     color: white;
     background-color: var(--primary);
@@ -85,7 +81,6 @@ a {
     margin: 20px;
     text-align: center;
     min-height: var(--itemsize);
-    box-sizing: content-box;
 }
 
 @media only screen and (max-width: 800px) {
@@ -143,6 +138,25 @@ a {
     font-size: x-large;
 }
 
+.addwrapper {
+    float: left;
+    width: var(--itemsize);
+    height: var(--itemsize);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#items {
+    width: fit-content;
+    height: 100%;
+    margin: 0;
+}
+
+#items > .item {
+    margin-bottom: 6px;
+}
+
 .item {
     float: left;
 }
@@ -162,6 +176,23 @@ a {
 }
 
 /* ===================== UI COMPONENTS ===================== */
+a {
+    color: white;
+}
+
+.add {
+    background-color: aquamarine;
+    width: 40px; height: 40px;
+    margin: auto;
+    left: 0; right: 0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--accent);
+    font-size: 1.5rem;
+}
+
 /* Fancy button with background gradient and animation */
 .button {
     align-items: center;

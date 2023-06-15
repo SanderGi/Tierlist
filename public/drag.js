@@ -71,6 +71,11 @@ function handleDrop(e) {
         } else {
             this.appendChild(dragSrcEl);
         }
+        document.querySelectorAll('.preserve-last').forEach(elem => {
+            const parent = elem.parentElement;
+            elem.remove();
+            parent.appendChild(elem);
+        });
     }
 
     return false;
