@@ -3,87 +3,62 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>Tier List</title>
 
-    <!-- update the version number as needed -->
     <script defer src="/__/firebase/9.22.2/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/9.22.2/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/9.22.2/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/9.22.2/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/9.22.2/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/9.22.2/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/9.22.2/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/9.22.2/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/9.22.2/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/9.22.2/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
+    <link rel="icon" type="image/png" href="/assets/icon.png">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+    <header>
+        <div>
+            <img src="assets/icon.png">
+            <h1>Tier List</h1>
+        </div>
+        <div>
+            <button class="button">Ranking Mode &nbsp; <i class="fa-solid fa-ranking-star"></i></button>
+            <button class="button">Share &nbsp; <i class="fa fa-share"></i></button>
+            <button class="button">Templates &nbsp; <i class="fa-solid fa-book-atlas"></i></button>
+        </div>
+    </header>
+    <main>
+        <div class="tierlist">
+            <h1 contenteditable="true">Click to change title</h1>
+            <p>Click tiers to change text (or click the palette to change color), add tiers and items, then activate ranking mode to hide all the tier making UI. Click share to get a link that will bring you and others back to this list.</p>
+            <div id="tiers">
+                <div class="tier">
+                    <div class="value">
+                        <p contenteditable="true">S</p>
+                        <input type="color" id="tier1" name="tier1" value="#e66465">
+                        <label for="tier1" aria-details="change color of tier"><i class="fa-solid fa-palette"></i></label>
+                    </div>
+                    <div class="dropzone">
+                        
+                    </div>
+                </div>
+            </div>
+            <div>
+                +
+            </div>
+        </div>
+        <div class="itemlist dropzone" data-dropzone-for="items">
+            <div id="items">
+                <div class="item" draggable="true">A</div>
+                <div class="item" draggable="true">B</div>
+                <div class="item" draggable="true">C</div>
+                <div class="item" draggable="true">D</div>
+            </div>
+            <div>
+                +
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Images from <a href="https://pixabay.com/">Pixabay</a> | <a target="_blank" href="https://icons8.com/icon/tY7IifTUrMVF/level">Level</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> | <a href="https://github.com/SanderGi/Tierlist">Code</a> opensource under <a href="https://github.com/SanderGi/Tierlist/blob/master/LICENSE">GPL-3.0 license</a></p>
+    </footer>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
+    <script src="scripts.js"></script>
   </body>
 </html>
