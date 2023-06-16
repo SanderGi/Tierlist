@@ -134,7 +134,7 @@ footer {
 
 .value > label {
     position: absolute;
-    right: 0; bottom: 0;
+    right: 2px; bottom: 0;
     font-size: x-large;
 }
 

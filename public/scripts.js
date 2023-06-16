@@ -8,8 +8,10 @@ function addTier() {
     const text = texts[tiers % texts.length];
     tiers++;
 
-    const tier = document.getElementById('tier-template').content.cloneNode(true);
-    const value = tier.firstElementChild.firstElementChild;
+    const tier = document.getElementById('tier-template').content.cloneNode(true).firstElementChild;
+    const id = 'tier-' + tiers
+    tier.id = id;
+    const value = tier.firstElementChild;
     value.style.backgroundColor = color;
 
     const textContainer = value.firstElementChild;
@@ -21,6 +23,11 @@ function addTier() {
         value.style.backgroundColor = colorInput.value;
     });
 
+    const deleteButton = tier.lastElementChild;
+    deleteButton.addEventListener('click', () => {
+        document.getElementById(id).remove();
+    });
+
     document.getElementById('tiers').appendChild(tier);
     initDragNDrop();
 }
@@ -28,3 +35,7 @@ function addTier() {
 document.getElementById('add-tier').addEventListener('click', e => {
     addTier();
 });
+
+for (let i = 0; i < 5; i++) {
+    addTier();
+}
