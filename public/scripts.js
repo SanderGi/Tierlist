@@ -1,3 +1,33 @@
+// ===================== RANKING MODE =====================
+const rankingModeButton = document.getElementById('toggle-ranking-mode');
+
+let isRankingMode = false;
+function toggleRankingMode() {
+    isRankingMode = !isRankingMode;
+
+    if (isRankingMode) {
+        rankingModeButton.innerHTML = 'Edit Mode &nbsp; <i class="fa-solid fa-pen-to-square"></i>';
+        document.querySelectorAll('.edit-ui').forEach(toHideElement => {
+            toHideElement.style.display = 'none';
+        });
+        document.querySelectorAll('[contentEditable="true"]').forEach(toHideElement => {
+            toHideElement.contentEditable = 'false';
+        });
+    } else {
+        rankingModeButton.innerHTML = 'Ranking Mode &nbsp; <i class="fa-solid fa-ranking-star"></i>';
+        document.querySelectorAll('.edit-ui').forEach(toHideElement => {
+            toHideElement.style.display = '';
+        });
+        document.querySelectorAll('[contentEditable="false"]').forEach(toHideElement => {
+            toHideElement.contentEditable = 'true';
+        });
+    }
+}
+
+rankingModeButton.addEventListener('click', e => {
+    toggleRankingMode();
+});
+
 // ===================== TIERS =====================
 const colors = ['#ff7f7e', '#ffbf7f', '#ffdf80', '#feff7f', '#beff7f', '#7eff80', '#7fffff', '#7fbfff', '#807fff', '#ff7ffe', '#bf7fbe', '#3b3b3b', '#858585', '#cfcfcf', '#f7f7f7'];
 const texts = ['S', ...[...Array(26)].map((val, i) => String.fromCharCode(i + 65))];
@@ -16,6 +46,11 @@ function addTier() {
 
     const textContainer = value.firstElementChild;
     textContainer.textContent = text;
+
+    // reset scroll position when text unfocused, necessary since editing the text can modify the scroll position
+    textContainer.addEventListener('blur', () => {
+        value.scrollTo(0, 0);
+    });
 
     const colorInput = value.lastElementChild.firstElementChild;
     colorInput.value = color;

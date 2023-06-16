@@ -18,7 +18,7 @@
             <h1>Tier List</h1>
         </div>
         <div>
-            <button class="button">Ranking Mode &nbsp; <i class="fa-solid fa-ranking-star"></i></button>
+            <button class="button" id="toggle-ranking-mode">Ranking Mode &nbsp; <i class="fa-solid fa-ranking-star"></i></button>
             <button class="button">Share &nbsp; <i class="fa fa-share"></i></button>
             <button class="button">Templates &nbsp; <i class="fa-solid fa-book-atlas"></i></button>
         </div>
@@ -26,21 +26,21 @@
     <main>
         <div class="tierlist">
             <h1 contenteditable="true">Click to change title</h1>
-            <p>Click tiers to change text (or click the palette to change color), add tiers and items, then activate ranking mode to hide all the tier making UI. Click share to get a link that will bring you and others back to this list.</p>
+            <p class="edit-ui">Click tiers to change text (or click the palette to change color), add tiers and items, then activate ranking mode to hide all the tier making UI. Click share to get a link that will bring you and others back to this list.</p>
             <div id="tiers">
                 <template id="tier-template">
                     <div class="tier">
                         <div class="value">
                             <p contenteditable="true">S</p>
-                            <label aria-details="change color of tier"><input type="color" value="#8a2be2"><i class="fa-solid fa-palette"></i></label>
+                            <label aria-details="change color of tier" class="edit-ui"><input type="color" value="#8a2be2"><i class="fa-solid fa-palette"></i></label>
                         </div>
                         <div class="dropzone"></div>
-                        <button aria-details="delete tier"><i class="fa-solid fa-trash"></i></button>
+                        <button class="edit-ui" aria-details="delete tier"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </template>
             </div>
             <br>
-            <button class="add" id="add-tier">
+            <button class="add edit-ui" id="add-tier">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>
@@ -49,10 +49,10 @@
                 <template id="item-template">
                     <div class="item" draggable="true">
                         <div class="label" contenteditable="true">A</div>
-                        <button aria-details="delete item"><i class="fa-solid fa-trash"></i></button>
+                        <button class="edit-ui" aria-details="delete item"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </template>
-                <div class="addwrapper preserve-last">
+                <div class="addwrapper preserve-last edit-ui">
                     <button class="add" id="add-item-button">
                         <i class="fa-solid fa-plus"></i>
                     </button>
