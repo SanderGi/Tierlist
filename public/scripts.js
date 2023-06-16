@@ -27,7 +27,7 @@ if (saved) {
     setTimeout(toggleRankingMode);
 }
 
-document.getElementById('share-button').addEventListener('focus', async e => {
+async function save() {
     const saveData = {};
     saveData.items = document.getElementById('items').innerHTML;
     saveData.tiers = document.getElementById('tiers').innerHTML;
@@ -36,6 +36,12 @@ document.getElementById('share-button').addEventListener('focus', async e => {
     await navigator.clipboard.writeText(window.location.href + '#' + encodeURIComponent(LZUTF8.compress(JSON.stringify(saveData), {outputEncoding: 'Base64'})));
     document.getElementById('share-button').blur();
     alert('Saved url to clipboard. Warning: only some browsers allow opening such long urls.');
+}
+document.getElementById('share-button').addEventListener('click', async e => {
+    save();
+});
+document.getElementById('share-button').addEventListener('focus', async e => {
+   save();
 });
 
 // ===================== RANKING MODE =====================
