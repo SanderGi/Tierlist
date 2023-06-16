@@ -30,11 +30,16 @@ function handleDragEnd(e) {
 // These elements have the .dropzone class and optionally a data-dropzone-for attribute set to the
 // id of the container element that draggable elements dropped on this zone should be placed in
 
+// ios workaround
+document.addEventListener('touchstart', () => { enterCount = -1 });
+document.addEventListener('touchend', () => { enterCount = 0 });
+
 // keep track of the number of times the drag path enters and leaves elements within the dropzone so
 // while the drag is inside the zone, we can set the .over class and once it leaves all entered child
 // elements, we can remove the .over class from this dropzone
 let enterCount = 0;
 function handleDragEnter(e) {
+    console.log("enter: " + enterCount)
     if (enterCount != 0 && !this.classList.contains('over')) {
         // when the drag enters a new dropzone before leaving the previous one, we need a timeout to ensure 
         // the enter event for the new dropzone is handled after the leave event for the previous dropzone
@@ -49,6 +54,7 @@ function handleDragEnter(e) {
 }
 
 function handleDragLeave(e) {
+    console.log('leave: ' + enterCount)
     enterCount--;
     if (enterCount === 0) this.classList.remove('over');
 }
