@@ -215,6 +215,30 @@ dialog {
     margin-bottom: 8px;
 }
 
+#suggestions {
+    min-height: var(--itemsize); 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center;
+}
+
+#suggestions > label {
+    background-color: var(--default); 
+    margin-right: 6px; margin-bottom: 6px; 
+    width: var(--itemsize); height: var(--itemsize);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#suggestions > label:has(input[type="radio"]:checked) {
+    border: 3px solid var(--accent);
+}
+
+#suggestions > label > input {
+    display: none;
+}
+
 /* ===================== DRAG AND DROP ===================== */
 .tier > .dropzone {
     width: 100%;

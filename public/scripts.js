@@ -155,11 +155,13 @@ const labelInput = document.getElementById('input-label');
 const urlInput = document.getElementById('input-url');
 const useURLradio = document.getElementById('use-image-url');
 const useUploadradio = document.getElementById('use-image-upload');
+const suggestions = document.getElementById('suggestions');
 const createItemButton = document.getElementById('create-item');
 
 document.getElementById('add-item-button').addEventListener('click', e => {
     addDialog.showModal();
 });
+addDialog.showModal();
 
 createItemButton.addEventListener('click', e => {
     addItem(preview.firstElementChild.textContent, preview.style.backgroundImage)
@@ -172,6 +174,7 @@ rotateIcon.addEventListener('click', () => {
 
     const img = new Image();
     img.src = dataURL;
+    img.crossOrigin = "anonymous";
     img.onload = () => {
         const canvas = document.createElement('canvas');
         canvas.width = img.height;
@@ -189,6 +192,45 @@ rotateIcon.addEventListener('click', () => {
 labelInput.addEventListener('input', e => {
     preview.firstElementChild.textContent = labelInput.value;
 });
+
+function suggestImages() {
+    const keywords = labelInput.value.replaceAll(' ', '+');
+    const cachedAnswer = localStorage.getItem('suggestions-' + keywords);
+    if (cachedAnswer) {
+        suggestions.innerHTML = cachedAnswer;
+        for (let i = 0; i < suggestions.childElementCount; i++) {
+            document.getElementById('suggestion-' + i).addEventListener('input', e => {
+                if (e.target.checked) {
+                    preview.style.backgroundImage = e.target.parentElement.style.backgroundImage;
+                }
+            });
+        }
+        return;
+    }
+    fetch(`https://pixabay.com/api/?key=37243414-d59c5342f6ccb055f6c8071d1&q=${keywords}`).then(res => res.json().then(images => {
+        if (!images || images.totalHits == 0) {
+            suggestions.textContent = 'No matches to label.'
+            return;
+        }
+        let html = '';
+        for (let i = 0; i < 4 && i < images.hits.length; i++) {
+            html += `<label style="background-image: url(${images.hits[i].previewURL})"><input type="radio" name="image" id='suggestion-${i}'></label>`;
+        }
+        localStorage.setItem('suggestions-' + keywords, html);
+        suggestions.innerHTML = html;
+        for (let i = 0; i < 4 && i < images.hits.length; i++) {
+            document.getElementById('suggestion-' + i).addEventListener('input', e => {
+                if (e.target.checked) {
+                    preview.style.backgroundImage = e.target.parentElement.style.backgroundImage;
+                }
+            });
+        }
+    }));
+}
+labelInput.addEventListener('change', e => {
+    suggestImages();
+});
+suggestImages();
 
 useURLradio.addEventListener('input', e => {
     if (useURLradio.checked && urlInput.checkValidity())
@@ -378,5 +420,3 @@ function blobToDataURL(blob, callback) {
     a.onload = function(e) {callback(e.target.result);}
     a.readAsDataURL(blob);
 }
-
-// fetch(`https://pixabay.com/api/?key=37243414-d59c5342f6ccb055f6c8071d1&q=${'bach+music'}`).then(t => t.json().then(j => console.log(j)))
