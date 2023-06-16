@@ -235,6 +235,7 @@ dialog {
 }
 
 [draggable] {
+    -webkit-user-select: none;
     user-select: none;
     cursor: move;
 }
