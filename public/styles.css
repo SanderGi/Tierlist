@@ -126,7 +126,7 @@ footer {
     min-width: 10px;
 }
 
-.value > input[type="color"] {
+.value input[type="color"] {
     opacity: 0;
     position: absolute;
     right: 0; bottom: 0;
@@ -155,6 +155,15 @@ footer {
 /* ===================== DRAG AND DROP ===================== */
 .tier > .dropzone {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: -2px;
+    margin-bottom: -2px;
+}
+
+.tier > .dropzone > * {
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 .dropzone.over {

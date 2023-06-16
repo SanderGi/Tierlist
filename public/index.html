@@ -28,17 +28,19 @@
             <h1 contenteditable="true">Click to change title</h1>
             <p>Click tiers to change text (or click the palette to change color), add tiers and items, then activate ranking mode to hide all the tier making UI. Click share to get a link that will bring you and others back to this list.</p>
             <div id="tiers">
-                <div class="tier">
-                    <div class="value">
-                        <p contenteditable="true">S</p>
-                        <input type="color" id="tier1" name="tier1" value="#e66465">
-                        <label for="tier1" aria-details="change color of tier"><i class="fa-solid fa-palette"></i></label>
+                <template id="tier-template">
+                    <div class="tier">
+                        <div class="value">
+                            <p contenteditable="true">S</p>
+                            <label aria-details="change color of tier"><input type="color" value="#8a2be2"><i class="fa-solid fa-palette"></i></label>
+                        </div>
+                        <div class="dropzone"></div>
+                        <button aria-details="delete tier"><i class="fa-solid fa-trash"></i></button>
                     </div>
-                    <div class="dropzone"></div>
-                </div>
+                </template>
             </div>
             <br>
-            <button class="add">
+            <button class="add" id="add-tier">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>

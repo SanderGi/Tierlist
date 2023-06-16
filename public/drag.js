@@ -89,19 +89,24 @@ function clearSelection() {
 }
 document.onmousedown = clearSelection;
 
-// add event listeners to the correct elements and find those elements
-document.addEventListener('DOMContentLoaded', (event) => {
+// add event listeners to the correct elements and update items and dropzones arrays
+function initDragNDrop() {
     items = document.querySelectorAll('[draggable]');
     items.forEach(item => {
         item.addEventListener('dragstart', handleDragStart, false);
         item.addEventListener('dragend', handleDragEnd, false);
     });
 
-    dropzones = [...document.getElementsByClassName('dropzone')];
+    dropzones = document.querySelectorAll('.dropzone');
     dropzones.forEach(zone => {
         zone.addEventListener('dragenter', handleDragEnter, false);
         zone.addEventListener('dragleave', handleDragLeave, false);
         zone.addEventListener('dragover', handleDragOver, false);
         zone.addEventListener('drop', handleDrop, false)
     });
+}
+
+// DOM loads
+document.addEventListener('DOMContentLoaded', e => {
+    initDragNDrop();
 });
