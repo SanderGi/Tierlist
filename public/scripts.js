@@ -161,7 +161,6 @@ const createItemButton = document.getElementById('create-item');
 document.getElementById('add-item-button').addEventListener('click', e => {
     addDialog.showModal();
 });
-addDialog.showModal();
 
 createItemButton.addEventListener('click', e => {
     addItem(preview.firstElementChild.textContent, preview.style.backgroundImage)
