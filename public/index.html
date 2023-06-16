@@ -8,6 +8,8 @@
     <script defer src="/__/firebase/9.22.2/firebase-app-compat.js"></script>
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
+    <script id="lzutf8" src="https://cdn.jsdelivr.net/npm/lzutf8/build/production/lzutf8.js"></script>
+
     <link rel="icon" type="image/png" href="/assets/icon.png">
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -19,13 +21,13 @@
         </div>
         <div>
             <button class="button" id="toggle-ranking-mode">Ranking Mode &nbsp; <i class="fa-solid fa-ranking-star"></i></button>
-            <button class="button">Share &nbsp; <i class="fa fa-share"></i></button>
+            <button class="button" id="share-button">Share &nbsp; <i class="fa fa-share"></i></button>
             <button class="button">Templates &nbsp; <i class="fa-solid fa-book-atlas"></i></button>
         </div>
     </header>
     <main>
         <div class="tierlist">
-            <h1 contenteditable="true">Click to change title</h1>
+            <h1 contenteditable="true" id="title">Click to change title</h1>
             <p class="edit-ui">Click tiers to change text (or click the palette to change color), add tiers and items, then activate ranking mode to hide all the tier making UI. Click share to get a link that will bring you and others back to this list.</p>
             <div id="tiers">
                 <template id="tier-template">
@@ -71,6 +73,7 @@
             </div><br>
             <button class="button" id="create-item">Create!</button>
         </dialog>
+        <dialog id="alert"></dialog>
     </main>
     <footer>
         <p>Images from <a href="https://pixabay.com/">Pixabay</a> | <a target="_blank" href="https://icons8.com/icon/tY7IifTUrMVF/level">Level</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> | <a href="https://github.com/SanderGi/Tierlist">Code</a> opensource under <a href="https://github.com/SanderGi/Tierlist/blob/master/LICENSE">GPL-3.0 license</a></p>

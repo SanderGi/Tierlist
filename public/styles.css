@@ -190,7 +190,7 @@ footer {
     margin-right: 6px;
 }
 
-#add-item {
+dialog {
     background-color: var(--background);
     color: white;
     width: max-content;
