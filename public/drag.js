@@ -35,8 +35,17 @@ function handleDragEnd(e) {
 // elements, we can remove the .over class from this dropzone
 let enterCount = 0;
 function handleDragEnter(e) {
-    enterCount++;
-    this.classList.add('over');
+    if (enterCount != 0 && !this.classList.contains('over')) {
+        // when the drag enters a new dropzone before leaving the previous one, we need a timeout to ensure 
+        // the enter event for the new dropzone is handled after the leave event for the previous dropzone
+        setTimeout(() => {
+            enterCount++;
+            this.classList.add('over');
+        });
+    } else {
+        enterCount++;
+        this.classList.add('over');
+    }
 }
 
 function handleDragLeave(e) {
