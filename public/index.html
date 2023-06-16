@@ -46,10 +46,10 @@
         </div>
         <div class="itemlist dropzone" data-dropzone-for="items">
             <div id="items">
-                <div class="item" draggable="true">A</div>
-                <div class="item" draggable="true">B</div>
-                <div class="item" draggable="true">C</div>
-                <div class="item" draggable="true">D</div>
+                <div class="item" draggable="true">
+                    <div class="label" contenteditable="true">A</div>
+                    <button aria-details="delete item"><i class="fa-solid fa-trash"></i></button>
+                </div>
                 <div class="addwrapper preserve-last">
                     <button class="add">
                         <i class="fa-solid fa-plus"></i>
@@ -57,6 +57,18 @@
                 </div>
             </div>
         </div>
+        <dialog id="add-item">
+            <div class="item-preview" id="preview">
+                <div class="label">Label</div>
+            </div>
+            <label>Label text: <input type="text"></label><br>
+            <input type="radio" name="image" id="use-image-url" checked><label for="use-image-url">Image url: <input type="url"></label><br>
+            <input type="radio" name="image" id="use-image-upload"><label for="use-image-upload">Image upload:</label>
+            <div id="image-drop">
+                <label><i class="fa fa-image"></i><input id="image-upload" type="file" accept="image/*" style="display: none;"></label>
+            </div><br>
+            <button class="button">Create!</button>
+        </dialog>
     </main>
     <footer>
         <p>Images from <a href="https://pixabay.com/">Pixabay</a> | <a target="_blank" href="https://icons8.com/icon/tY7IifTUrMVF/level">Level</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a> | <a href="https://github.com/SanderGi/Tierlist">Code</a> opensource under <a href="https://github.com/SanderGi/Tierlist/blob/master/LICENSE">GPL-3.0 license</a></p>

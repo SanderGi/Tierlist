@@ -1,4 +1,4 @@
-// add new tiers
+// ===================== TIERS =====================
 const colors = ['#ff7f7e', '#ffbf7f', '#ffdf80', '#feff7f', '#beff7f', '#7eff80', '#7fffff', '#7fbfff', '#807fff', '#ff7ffe', '#bf7fbe', '#3b3b3b', '#858585', '#cfcfcf', '#f7f7f7'];
 const texts = ['S', ...[...Array(26)].map((val, i) => String.fromCharCode(i + 65))];
 let tiers = 0;
@@ -36,6 +36,68 @@ document.getElementById('add-tier').addEventListener('click', e => {
     addTier();
 });
 
+// add default tiers
 for (let i = 0; i < 5; i++) {
     addTier();
 }
+
+// ===================== ITEMS =====================
+
+// reset scroll position of item labels when unfocused
+for (const item of items) {
+    item.firstElementChild.addEventListener('blur', () => {
+        item.firstElementChild.scrollTo(0, 0);
+    });
+}
+
+// Add item modal
+const addDialog = document.getElementById('add-item');
+addDialog.showModal();
+const preview = document.getElementById('preview');
+const useURLradio = document.getElementById('use-image-url');
+const useUploadradio = document.getElementById('use-image-upload');
+
+let imageUploadDataURL;
+const reader = new FileReader(); // converts image file to base64 string
+reader.addEventListener(
+    "load",
+    () => {
+        imageUploadDataURL = reader.result;
+        preview.style.backgroundImage = 'url(' + imageUploadDataURL + ')';
+        useUploadradio.checked = true;
+    },
+    false
+);
+
+const imageUploader = document.getElementById('image-upload');
+imageUploader.addEventListener('input', e => {
+    reader.readAsDataURL(imageUploader.files[0]);
+});
+
+const imageDrop = document.getElementById('image-drop');
+imageDrop.addEventListener('drop', (ev) => {
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
+  
+    if (ev.dataTransfer.items) {
+        // Use DataTransferItemList interface to access the file(s)
+        [...ev.dataTransfer.items].forEach((item, i) => {
+            // If dropped items aren't files, reject them
+            if (item.kind === "file") {
+                const file = item.getAsFile();
+                reader.readAsDataURL(file);
+            }
+        });
+    } else {
+        // Use DataTransfer interface to access the file(s)
+        [...ev.dataTransfer.files].forEach((file, i) => {
+            reader.readAsDataURL(file);
+        });
+    }
+});
+imageDrop.addEventListener('dragover', (ev) => {
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
+});
+
+// fetch(`https://pixabay.com/api/?key=37243414-d59c5342f6ccb055f6c8071d1&q=${'bach+music'}`).then(t => t.json().then(j => console.log(j)))

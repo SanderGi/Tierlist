@@ -93,7 +93,7 @@ footer {
 }
 
 /* ===================== TIERS AND ITEMS ===================== */
-.value, .item {
+.value, .item, .item-preview {
     background-color: var(--default);
     height: var(--itemsize);
     min-width: var(--itemsize);
@@ -148,8 +148,68 @@ footer {
     margin-bottom: 6px;
 }
 
-.item {
+.item, .item-preview  {
     float: left;
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.item > .label, .item-preview > .label {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    background-color: rgba(45, 35, 66, .6);
+    font-weight: 100;
+    padding-top: 1px;
+    text-align: center;
+
+    /* Allow two lines and show ellipsis when content goes beyond these two lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    display: box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-height: 1em;        /* fallback */
+    max-height: 2em;       /* fallback */
+}
+
+.item > button {
+    position: absolute;
+    top: 0; right: 0;
+}
+
+#preview {
+    margin-right: 6px;
+}
+
+#add-item {
+    background-color: var(--background);
+    color: white;
+    width: max-content;
+}
+
+#add-item > button {
+    margin: auto;
+    left: 0; right: 0;
+    display: block;
+    text-align: center;
+}
+
+#add-item input[type="url"] {
+    width: 130px;
+}
+
+#add-item input[type="text"], #add-item input[type="url"] {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--accent);
+    color: white;
+    margin-bottom: 8px;
 }
 
 /* ===================== DRAG AND DROP ===================== */
@@ -159,6 +219,7 @@ footer {
     flex-wrap: wrap;
     margin-top: -2px;
     margin-bottom: -2px;
+    z-index: 2;
 }
 
 .tier > .dropzone > * {
@@ -173,6 +234,21 @@ footer {
 [draggable] {
     user-select: none;
     cursor: move;
+}
+
+#image-drop {
+    border: 3px dotted var(--accent);
+    padding: 24px;
+    margin-top: 16px;
+}
+
+#image-drop > label {
+    position: relative;
+    display: block;
+    margin: auto;
+    left: 0; right: 0;
+    width: fit-content;
+    font-size: 3em;
 }
 
 /* ===================== UI COMPONENTS ===================== */
