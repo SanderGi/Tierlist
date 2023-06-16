@@ -46,12 +46,14 @@
         </div>
         <div class="itemlist dropzone" data-dropzone-for="items">
             <div id="items">
-                <div class="item" draggable="true">
-                    <div class="label" contenteditable="true">A</div>
-                    <button aria-details="delete item"><i class="fa-solid fa-trash"></i></button>
-                </div>
+                <template id="item-template">
+                    <div class="item" draggable="true">
+                        <div class="label" contenteditable="true">A</div>
+                        <button aria-details="delete item"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </template>
                 <div class="addwrapper preserve-last">
-                    <button class="add">
+                    <button class="add" id="add-item-button">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
@@ -61,13 +63,13 @@
             <div class="item-preview" id="preview">
                 <div class="label">Label</div>
             </div>
-            <label>Label text: <input type="text"></label><br>
-            <input type="radio" name="image" id="use-image-url" checked><label for="use-image-url">Image url: <input type="url"></label><br>
+            <label>Label text: <input type="text" id="input-label"></label><br>
+            <input type="radio" name="image" id="use-image-url" checked><label for="use-image-url">Image url: <input type="url" id="input-url"></label><br>
             <input type="radio" name="image" id="use-image-upload"><label for="use-image-upload">Image upload:</label>
             <div id="image-drop">
                 <label><i class="fa fa-image"></i><input id="image-upload" type="file" accept="image/*" style="display: none;"></label>
             </div><br>
-            <button class="button">Create!</button>
+            <button class="button" id="create-item">Create!</button>
         </dialog>
     </main>
     <footer>

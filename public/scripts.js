@@ -42,20 +42,60 @@ for (let i = 0; i < 5; i++) {
 }
 
 // ===================== ITEMS =====================
+let itemCount = 0;
+function addItem(labelText, imageString) {
+    const item = document.getElementById('item-template').content.cloneNode(true).firstElementChild;
+    const id = 'item-' + itemCount++;
+    item.id = id;
 
-// reset scroll position of item labels when unfocused
-for (const item of items) {
+    item.firstElementChild.textContent = labelText;
+    item.style.backgroundImage = imageString;
+
+    // reset scroll position of item's label when unfocused, necessary since editing the content can modify the scroll position
     item.firstElementChild.addEventListener('blur', () => {
         item.firstElementChild.scrollTo(0, 0);
     });
+
+    const deleteButton = item.lastElementChild;
+    deleteButton.addEventListener('click', () => {
+        document.getElementById(id).remove();
+    });
+
+    document.getElementById('items').prepend(item);
+    initDragNDrop();
 }
 
-// Add item modal
+// Add-item modal
 const addDialog = document.getElementById('add-item');
-addDialog.showModal();
 const preview = document.getElementById('preview');
+const labelInput = document.getElementById('input-label');
+const urlInput = document.getElementById('input-url');
 const useURLradio = document.getElementById('use-image-url');
 const useUploadradio = document.getElementById('use-image-upload');
+const createItemButton = document.getElementById('create-item');
+
+document.getElementById('add-item-button').addEventListener('click', e => {
+    addDialog.showModal();
+});
+
+createItemButton.addEventListener('click', e => {
+    addItem(preview.firstElementChild.textContent, preview.style.backgroundImage)
+    addDialog.close();
+});
+
+labelInput.addEventListener('input', e => {
+    preview.firstElementChild.textContent = labelInput.value;
+})
+
+useURLradio.addEventListener('input', e => {
+    if (useURLradio.checked && urlInput.checkValidity())
+        preview.style.backgroundImage = 'url(' + urlInput.value + ')';
+});
+urlInput.addEventListener('input', e => {
+    if (useURLradio.checked) {
+        preview.style.backgroundImage = 'url(' + urlInput.value + ')';
+    }
+});
 
 let imageUploadDataURL;
 const reader = new FileReader(); // converts image file to base64 string
