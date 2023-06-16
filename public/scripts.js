@@ -17,15 +17,18 @@ if (!LZUTF8) { /* fallback if compression is not available */
     }
 }
 
-const saved = window.location.hash;
-if (saved) {
-    alert('Saved data loaded. Warning: only some browsers allow opening such long urls.');
-    
-    const saveData = JSON.parse(LZUTF8.decompress(decodeURIComponent(saved.slice(1)), {inputEncoding: 'Base64'}));
+function loadSaved(hash) {
+    const saveData = JSON.parse(LZUTF8.decompress(decodeURIComponent(hash.slice(1)), {inputEncoding: 'Base64'}));
     document.getElementById('items').innerHTML = saveData.items;
     document.getElementById('tiers').innerHTML = saveData.tiers;
     document.getElementById('title').textContent = saveData.title;
     setTimeout(toggleRankingMode);
+}
+
+const saved = window.location.hash;
+if (saved) {
+    alert('Saved data loaded. Warning: only some browsers allow opening such long urls.');
+    loadSaved(saved);
 }
 
 async function save() {
@@ -44,6 +47,18 @@ document.getElementById('share-button').addEventListener('click', async e => {
 document.getElementById('share-button').addEventListener('focus', async e => {
     save();
 });
+
+// ===================== TEMPLATES =====================
+document.getElementById('templates-button').addEventListener('click', e => {
+    document.getElementById('templates').showModal();
+});
+
+function loadTemplate(filename) {
+    fetch('/templates/' + filename + '.txt').then(res => res.text().then(template => {
+        loadSaved(template);
+    }));
+    document.getElementById('templates').close();
+}
 
 // ===================== RANKING MODE =====================
 const rankingModeButton = document.getElementById('toggle-ranking-mode');
