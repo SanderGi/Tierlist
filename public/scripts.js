@@ -10,6 +10,7 @@ function alert(message) {
 
 // ===================== SHARE =====================
 if (!LZUTF8) { /* fallback if compression is not available */
+    alert('Warning: url compression is not available. Share feature may be unreliable.');
     LZUTF8 = {
         compress: (input, options) => input,
         decompress: (input, options) => input
@@ -41,7 +42,7 @@ document.getElementById('share-button').addEventListener('click', async e => {
     save();
 });
 document.getElementById('share-button').addEventListener('focus', async e => {
-   save();
+    save();
 });
 
 // ===================== RANKING MODE =====================
@@ -149,6 +150,7 @@ function addItem(labelText, imageString) {
 // Add-item modal
 const addDialog = document.getElementById('add-item');
 const preview = document.getElementById('preview');
+const rotateIcon = preview.lastElementChild;
 const labelInput = document.getElementById('input-label');
 const urlInput = document.getElementById('input-url');
 const useURLradio = document.getElementById('use-image-url');
@@ -164,9 +166,29 @@ createItemButton.addEventListener('click', e => {
     addDialog.close();
 });
 
+rotateIcon.addEventListener('click', () => {
+    let dataURL = preview.style.backgroundImage;
+    dataURL = dataURL.replace('url(','').replace(')','').replaceAll('"',''); // get rid of 'url("")' text
+
+    const img = new Image();
+    img.src = dataURL;
+    img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.height;
+        canvas.height = img.width;
+        canvas.style.position = "absolute"
+        const ctx = canvas.getContext("2d");
+        ctx.imageSmoothingEnabled = false;
+        ctx.translate(img.height, Math.floor(img.width / img.height));
+        ctx.rotate(Math.PI / 2);
+        ctx.drawImage(img, 0, 0);
+        preview.style.backgroundImage = 'url(' + canvas.toDataURL() + ')';
+    };
+});
+
 labelInput.addEventListener('input', e => {
     preview.firstElementChild.textContent = labelInput.value;
-})
+});
 
 useURLradio.addEventListener('input', e => {
     if (useURLradio.checked && urlInput.checkValidity())
@@ -178,7 +200,14 @@ urlInput.addEventListener('input', e => {
     }
 });
 
+let uploadedDataURL;
+useUploadradio.addEventListener('input', e => {
+    if (useUploadradio.checked && uploadedDataURL)
+        preview.style.backgroundImage = 'url(' + uploadedDataURL + ')';
+});
+
 function handleUploadedDataURL(dataurl) {
+    uploadedDataURL = dataurl;
     preview.style.backgroundImage = 'url(' + dataurl + ')';
     useUploadradio.checked = true;
 }

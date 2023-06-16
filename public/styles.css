@@ -281,6 +281,7 @@ a {
     color: var(--accent);
     font-size: 1.5rem;
     border: none;
+    padding: 0px;
 }
 
 .add:hover:not(:active) {
