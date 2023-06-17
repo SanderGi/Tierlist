@@ -207,7 +207,28 @@ labelInput.addEventListener('input', e => {
     preview.firstElementChild.textContent = labelInput.value;
 });
 
-function suggestImages() {
+async function logoSearch(keywords) {
+    if (!keywords) return false;
+    try {
+        const url = 'https://api.brandfetch.io/v2/search/' + keywords;
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Referer: window.location.origin
+            }
+        };
+        const response = await fetch(url, options);
+        const brands = await response.json();
+        if (brands.length < 1) return false;
+        // return brands[0].icon;
+        return 'https://logo.clearbit.com/' + brands[0].domain;
+    } catch {
+        return false;
+    }
+}
+
+async function suggestImages() {
     const keywords = labelInput.value.replaceAll(' ', '+');
     const cachedAnswer = localStorage.getItem('suggestions-' + keywords);
     if (cachedAnswer) {
@@ -221,25 +242,27 @@ function suggestImages() {
         }
         return;
     }
-    fetch(`https://pixabay.com/api/?key=37243414-d59c5342f6ccb055f6c8071d1&q=${keywords}`).then(res => res.json().then(images => {
-        if (!images || images.totalHits == 0) {
-            suggestions.textContent = 'No matches to label.'
-            return;
-        }
-        let html = '';
-        for (let i = 0; i < 4 && i < images.hits.length; i++) {
-            html += `<label style="background-image: url(${images.hits[i].previewURL})"><input type="radio" name="image" id='suggestion-${i}'></label>`;
-        }
-        localStorage.setItem('suggestions-' + keywords, html);
-        suggestions.innerHTML = html;
-        for (let i = 0; i < 4 && i < images.hits.length; i++) {
-            document.getElementById('suggestion-' + i).addEventListener('input', e => {
-                if (e.target.checked) {
-                    preview.style.backgroundImage = e.target.parentElement.style.backgroundImage;
-                }
-            });
-        }
-    }));
+    const response = await fetch(`https://pixabay.com/api/?key=37243414-d59c5342f6ccb055f6c8071d1&q=${keywords}`);
+    const images = await response.json();
+    const logo = await logoSearch(keywords);
+    if ((!images || images.totalHits == 0) && !logo) {
+        suggestions.textContent = 'No matches to label.'
+        return;
+    }
+    if (logo) images.hits = [{ previewURL: logo }, ...images.hits];
+    let html = '';
+    for (let i = 0; i < 4 && i < images.hits.length; i++) {
+        html += `<label style="background-image: url(${images.hits[i].previewURL})"><input type="radio" name="image" id='suggestion-${i}'></label>`;
+    }
+    localStorage.setItem('suggestions-' + keywords, html);
+    suggestions.innerHTML = html;
+    for (let i = 0; i < 4 && i < images.hits.length; i++) {
+        document.getElementById('suggestion-' + i).addEventListener('input', e => {
+            if (e.target.checked) {
+                preview.style.backgroundImage = e.target.parentElement.style.backgroundImage;
+            }
+        });
+    }
 }
 labelInput.addEventListener('change', e => {
     suggestImages();
