@@ -22,6 +22,7 @@ function loadSaved(hash) {
     document.getElementById('items').innerHTML = saveData.items;
     document.getElementById('tiers').innerHTML = saveData.tiers;
     document.getElementById('title').textContent = saveData.title;
+    initDragNDrop();
     setTimeout(toggleRankingMode);
 }
 

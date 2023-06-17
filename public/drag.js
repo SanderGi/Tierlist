@@ -39,7 +39,6 @@ document.addEventListener('touchend', () => { enterCount = 0 });
 // elements, we can remove the .over class from this dropzone
 let enterCount = 0;
 function handleDragEnter(e) {
-    console.log("enter: " + enterCount)
     if (enterCount != 0 && !this.classList.contains('over')) {
         // when the drag enters a new dropzone before leaving the previous one, we need a timeout to ensure 
         // the enter event for the new dropzone is handled after the leave event for the previous dropzone
@@ -54,7 +53,6 @@ function handleDragEnter(e) {
 }
 
 function handleDragLeave(e) {
-    console.log('leave: ' + enterCount)
     enterCount--;
     if (enterCount === 0) this.classList.remove('over');
 }
